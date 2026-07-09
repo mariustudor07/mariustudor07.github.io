@@ -1,7 +1,7 @@
-# ─────────────────────────────────────────────────────────────
+# =============================================================
 # EDIT THIS FILE to update the About page. Everything the home
-# page renders comes from here — no need to touch the HTML.
-# ─────────────────────────────────────────────────────────────
+# page renders comes from here, so you don't need to touch the HTML.
+# =============================================================
 
 profile:
   name: "Marius Tudor"
@@ -14,12 +14,12 @@ profile:
     - "Hack The Box team admin at ARU Cambridge."
     - "I like shipping things that actually get used."
   bio: >-
-    I'm a first-year Cybersecurity BSc student at ARU Cambridge, and I've been
-    coding for years before that. I run my university's Hack The Box team and
-    spend my own time building an AI-powered penetration testing framework. What
-    I really care about is offensive security and shipping things people actually
+    I'm a first-year Cybersecurity BSc student at ARU Cambridge, and I'd been
+    coding for years before that. I run my university's Hack The Box team, and in
+    my own time I'm building an AI-powered penetration testing framework. What I
+    really care about is offensive security and shipping things people actually
     use. Right now I'm building out MotorLog, a DVLA-powered app that's already
-    live on the web with a Kotlin Android build on the way.
+    live on the web, with a Kotlin Android build on the way.
 
 socials:
   github: "https://github.com/mariustudor07"
@@ -28,7 +28,7 @@ socials:
 
 flagship:
   name: "AI-Powered Penetration Testing Framework"
-  period: "2025 – Present"
+  period: "2025 to now"
   tag: "Personal / Open Source"
   link: "https://github.com/mariustudor07/ai-pentest-agent"
   summary: >-
@@ -42,19 +42,19 @@ flagship:
     - { lang: "JavaScript", role: "Web vulnerability assessment",    status: "planned" }
 
 projects:
-  - name: "MotorLog — Vehicle Compliance & Insurance Reminder App"
-    period: "2024 – Present"
+  - name: "MotorLog: Vehicle Compliance & Insurance Reminder App"
+    period: "2024 to now"
     tag: "EPQ Independent Research Project"
     stack: ["TypeScript (Web)", "DVLA API", "REST API"]
-    summary: "A full-stack app built on the government DVLA API that tells you before your MOT, tax, or insurance runs out. Started as my EPQ and grew into a real, live product."
+    summary: "A full-stack app built on the government DVLA API that tells you before your MOT, tax, or insurance runs out. It started as my EPQ and grew into a real, live product."
     highlight: "Live at motorlog.app. Won the Old Palmerians' Association Prize for independent research."
     link: "https://www.motorlog.app"
-  - name: "MotorLog — Native Android App"
-    period: "2025 – Present"
+  - name: "MotorLog Android App"
+    period: "2025 to now"
     tag: "Kotlin / Mobile · private repo"
     stack: ["Kotlin", "Android SDK", "DVLA REST API"]
-    summary: "The native Android build of MotorLog: a Kotlin mobile client that pulls MOT, tax, and insurance status straight from the DVLA API and reminds you before anything lapses."
-    highlight: "Where I learned native Android — app lifecycle, local persistence, and wiring a mobile client to a live REST backend. (Private repo.)"
+    summary: "The native Android build of MotorLog. It's a Kotlin mobile client that pulls MOT, tax, and insurance status straight from the DVLA API and reminds you before anything lapses."
+    highlight: "This is where I learned native Android: the app lifecycle, local persistence, and wiring a mobile client up to a live REST backend. (Private repo.)"
     link: ""
   - name: "Odysseus Companion App"
     period: "2026"
@@ -63,11 +63,11 @@ projects:
     summary: "A mobile companion for a self-hosted AI assistant. Pair your phone over QR and control it from anywhere: chat, attachments, voice dictation, email, calendar, notes, and tasks."
     highlight: "Built on top of the open-source Odysseus project, where I added the whole mobile companion layer."
     link: "https://github.com/mariustudor07/odysseus-companion-app"
-  - name: "Building Makemore — ML from Scratch"
+  - name: "Building Makemore: ML from Scratch"
     period: "2026"
     tag: "Learning Project"
     stack: ["Python", "PyTorch", "Jupyter"]
-    summary: "Building neural-network language models from the ground up — the embeddings, backprop, and attention behind modern transformers. Where my AI/ML skills actually come from."
+    summary: "Building neural-network language models from the ground up: the embeddings, backprop, and attention that sit behind modern transformers. This is where my AI/ML skills actually come from."
     highlight: ""
     link: "https://github.com/mariustudor07/BuildingMakemore"
   - name: "PHP IP Tracking & Network Intelligence"
@@ -95,27 +95,27 @@ skills:
 timeline:
   - title: "BSc (Hons) Cybersecurity"
     org: "ARU Cambridge"
-    period: "Sep 2025 – Present"
+    period: "Sep 2025 to now"
     location: "Cambridge, UK"
     points:
       - "Course Representative, working between students and faculty to push for a better curriculum."
       - "Admin of the university Hack The Box team, running our offensive security practice and team strategy."
-  - title: "A Levels — Head of Curriculum & Equality"
+  - title: "A Levels, Head of Curriculum & Equality"
     org: "Palmer's College (USP)"
-    period: "Sep 2023 – Jun 2025"
+    period: "Sep 2023 to Jun 2025"
     location: "Essex, UK"
     points:
       - "Won the Old Palmerians' Association Prize for my independent research (EPQ)."
       - "Led curriculum development work and represented student interests at institutional level."
-  - title: "GCSEs — Prefect"
+  - title: "GCSEs, Prefect"
     org: "St Clere's School"
-    period: "Sep 2018 – Jun 2023"
+    period: "Sep 2018 to Jun 2023"
     location: "Essex, UK"
     points: []
 
 certifications:
-  - "ISC2 CC (Certified in Cybersecurity) — in progress"
-  - "Microsoft SC-200 (Security Operations Analyst) — in progress"
+  - "ISC2 CC (Certified in Cybersecurity), in progress"
+  - "Microsoft SC-200 (Security Operations Analyst), in progress"
   - "Claude Code In Action (Anthropic)"
   - "AI Fluency For Students (Anthropic)"
   - "MEI Data Science Taught Course"

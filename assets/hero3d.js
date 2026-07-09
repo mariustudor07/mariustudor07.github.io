@@ -1,5 +1,5 @@
 // Lightweight, dependency-free 3D wireframe icosahedron on <canvas>.
-// Reads as a constellation / network graph — on-brand for security, and it
+// Reads as a constellation / network graph, on-brand for security, and it
 // can't "break ugly" the way a heavy 3D lib can. Respects reduced-motion.
 (function () {
   var canvas = document.getElementById('hero-canvas');

