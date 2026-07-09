@@ -1,12 +1,16 @@
-title: "Learning Log & Security Notes"
-description: "Web security testing notes, lab writeups, and things I'm learning."
+title: "Marius Tudor"
+tagline: "Offensive Security Researcher"
+description: "Cybersecurity student and offensive security researcher — web exploitation & Hack The Box writeups."
 author: mariustudor07
+url: "https://mariustudor07.github.io"
 
-# Clean permalinks: /2026/07/09/some-title/
-permalink: /:year/:month/:day/:title/
+# Clean permalinks: /blog/some-title/
+permalink: /blog/:title/
 
-# Jekyll renders Markdown -> HTML on GitHub's servers. No local build needed.
 markdown: kramdown
 highlighter: rouge
 
-# Show newest posts first on the homepage (handled in index.html)
+# Blog categories used for the filter bar (order matters)
+blog_categories:
+  - "Web Exploitation"
+  - "HTB Writeups"

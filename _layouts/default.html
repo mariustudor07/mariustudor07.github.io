@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
+    <link rel="preconnect" href="https://mariustudor07.github.io">
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
 </head>
 <body>
-    <header>
-        <a href="{{ '/' | relative_url }}" class="brand">// {{ site.title }}</a>
-    </header>
-    <hr>
-    <main>
+    <nav class="nav">
+        <a href="{{ '/' | relative_url }}" class="nav-brand">Marius&nbsp;Tudor<span class="nav-dot">.</span></a>
+        <div class="nav-links">
+            <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>About</a>
+            <a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog' %} class="active"{% endif %}>Blog</a>
+            <a href="{{ site.data.content.socials.github }}" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+        </div>
+    </nav>
+
+    <main class="main">
         {{ content }}
     </main>
-    <footer>
-        <hr>
-        <small>Built with Jekyll on GitHub Pages · <a href="https://github.com/{{ site.author }}">@{{ site.author }}</a></small>
+
+    <footer class="footer">
+        <span>© {{ site.time | date: "%Y" }} Marius Tudor</span>
+        <span class="footer-links">
+            <a href="{{ site.data.content.socials.github }}" target="_blank" rel="noopener">GitHub</a>
+            <a href="{{ site.data.content.socials.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="{{ site.data.content.socials.email }}">Email</a>
+        </span>
     </footer>
 </body>
 </html>
