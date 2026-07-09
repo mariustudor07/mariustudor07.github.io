@@ -288,6 +288,12 @@ a:hover { text-decoration: underline; }
 .timeline-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .timeline-head h3 { font-family: var(--display); margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
 .timeline-org { color: var(--muted); font-size: 0.9rem; margin: 3px 0 8px; }
+.timeline-grade {
+  display: inline-block; margin: 0 0 10px;
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+  color: var(--accent); background: var(--accent-soft);
+  padding: 3px 11px; border-radius: 999px;
+}
 .timeline-item ul { margin: 0; padding-left: 18px; color: var(--text); }
 .timeline-item li { margin: 5px 0; }
 

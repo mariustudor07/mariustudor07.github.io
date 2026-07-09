@@ -93,6 +93,7 @@ layout: default
                 <span class="pill">{{ t.period }}</span>
             </div>
             <p class="timeline-org">{{ t.org }} · {{ t.location }}</p>
+            {% if t.grade %}<p class="timeline-grade">{{ t.grade }}</p>{% endif %}
             {% if t.points.size > 0 %}
             <ul>{% for pt in t.points %}<li>{{ pt }}</li>{% endfor %}</ul>
             {% endif %}
