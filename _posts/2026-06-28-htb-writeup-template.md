@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "HTB — Writeup Template (retired boxes)"
+title: "HTB Writeup Template (retired boxes)"
 date: 2026-06-28
 category: "HTB Writeups"
 difficulty: "Easy"
@@ -27,7 +27,7 @@ nmap -sC -sV -p 22,80 -oA detail 10.10.10.10
 
 ## Enumeration
 
-What I found poking at each service — directory busting, source review, default creds.
+What I found poking at each service: directory busting, source review, default creds.
 
 ```bash
 ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt

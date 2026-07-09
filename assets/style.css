@@ -1,5 +1,5 @@
 /* ============================================================
-   Marius Tudor — modern editorial theme (light + dark)
+   Marius Tudor: modern editorial theme (light + dark)
    Rounded, warm, tactile. Display type + film grain + 3D hero.
    ============================================================ */
 
@@ -63,7 +63,7 @@ body {
   overflow-x: hidden;
 }
 
-/* organic ambient wash — soft, off-centre, not the generic centred blob */
+/* organic ambient wash: soft, off-centre, not the generic centred blob */
 body::before {
   content: "";
   position: fixed;
@@ -77,7 +77,7 @@ body::before {
   filter: blur(4px);
 }
 
-/* film grain — the "premium, not-flat, not-AI" texture */
+/* film grain: the premium, not-flat, not-AI texture */
 .grain {
   position: fixed;
   inset: 0;

@@ -1,6 +1,6 @@
 # mariustudor07.github.io
 
-My personal site — About + security blog. Live at **https://mariustudor07.github.io**
+My personal site: an About page plus a security blog. Live at **https://mariustudor07.github.io**
 
 Built with [Jekyll](https://jekyllrb.com/); GitHub Pages builds it automatically on
 every push. No local build step needed.
@@ -8,18 +8,18 @@ every push. No local build step needed.
 ## Editing the About page
 
 All the About/home content lives in **one file**: `_data/content.yml`
-(bio, skills, projects, timeline, certs, languages). Edit it, push, done —
-you never touch the HTML.
+(bio, skills, projects, timeline, certs, languages). Edit it, push, and you're
+done. You never touch the HTML.
 
 ## Adding a blog post / writeup
 
 1. Create a Markdown file in `_posts/` named `YYYY-MM-DD-title.md`
-2. Add this front matter — the **`category`** drives the filter buttons:
+2. Add this front matter. The **`category`** field drives the filter buttons:
 
    ```yaml
    ---
    layout: post
-   title: "HTB — Blackfield"
+   title: "HTB Blackfield"
    date: 2026-07-10
    category: "HTB Writeups"     # or "Web Exploitation"
    difficulty: "Hard"           # optional, HTB only
