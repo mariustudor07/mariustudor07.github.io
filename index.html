@@ -102,6 +102,22 @@ layout: default
     </div>
 </section>
 
+<!-- Leadership & volunteering -->
+<section class="section reveal">
+    <h2 class="section-title">Leadership &amp; volunteering</h2>
+    <div class="leadership-grid">
+        {% for l in c.leadership %}
+        <div class="lead-item">
+            <div class="lead-head">
+                <h3>{{ l.role }}</h3>
+                <span class="pill">{{ l.period }}</span>
+            </div>
+            <p class="lead-org">{{ l.org }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
 <!-- Certs + Languages -->
 <section class="section reveal two-col">
     <div>
