@@ -10,6 +10,11 @@ permalink: /blog/:title/
 markdown: kramdown
 highlighter: rouge
 
+# Generates /feed.xml (Atom) from _posts. Powers the auto-updating
+# "latest writeups" list on my GitHub profile README.
+plugins:
+  - jekyll-feed
+
 # Blog categories used for the filter bar (order matters)
 blog_categories:
   - "Web Exploitation"
