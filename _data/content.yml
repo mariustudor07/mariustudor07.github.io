@@ -122,9 +122,20 @@ certifications:
   - "AI Cybersecurity Beginners (freeacademy.ai)"
   - "Academic Process Mining Fundamentals (Celonis)"
   - "MEI Data Science Taught Course"
-  - "RAF Air Cadets Corporal, Duke of Edinburgh's Award"
   - "Jack Petchey 'Speak Out' Challenge Winner"
   - "Future CEO Award (University of East London)"
+
+# Leadership & volunteering (rendered on the home page).
+leadership:
+  - role: "Officer Cadet (awaiting attestation)"
+    org: "Cambridge University Air Squadron (CUAS)"
+    period: "2025 to now"
+  - role: "Member"
+    org: "Thurrock Youth Cabinet"
+    period: "May 2024 to Jul 2025"
+  - role: "Corporal, Duke of Edinburgh's Award"
+    org: "Royal Air Force Air Cadets"
+    period: "Sep 2021 to Dec 2022"
 
 languages:
   - name: "English"
