@@ -4,21 +4,28 @@ layout: default
 {% assign c = site.data.content %}
 
 <header class="hero">
-    <p class="hero-eyebrow">{{ c.profile.location }} · {{ c.profile.availability }}</p>
-    <h1 class="hero-name">{{ c.profile.name }}</h1>
-    <p class="hero-title">{{ c.profile.title }}</p>
-    <p class="hero-tagline"><span class="prompt">&gt;</span> <span id="typewriter" data-lines='{{ c.profile.taglines | jsonify }}'>{{ c.profile.taglines[0] }}</span><span class="caret">▋</span></p>
-    <p class="hero-bio">{{ c.profile.bio }}</p>
-    <div class="hero-actions">
-        <a class="btn btn-primary" href="{{ '/blog/' | relative_url }}">Read the blog</a>
-        <a class="btn" href="{{ c.socials.github }}" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="{{ c.socials.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="{{ c.socials.email }}">Email</a>
+    <div class="hero-text">
+        <p class="hero-eyebrow"><span class="ping"></span>{{ c.profile.location }} · {{ c.profile.availability }}</p>
+        <h1 class="hero-name">{{ c.profile.name }}</h1>
+        <p class="hero-title">{{ c.profile.title }}</p>
+        <p class="hero-tagline"><span class="prompt">&gt;</span> <span id="typewriter" data-lines='{{ c.profile.taglines | jsonify }}'>{{ c.profile.taglines[0] }}</span><span class="caret">▋</span></p>
+        <p class="hero-bio">{{ c.profile.bio }}</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+            <a class="btn" href="{{ c.socials.github }}" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="{{ c.socials.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="{{ c.socials.email }}">Email</a>
+        </div>
+    </div>
+    <div class="hero-3d" aria-hidden="true">
+        <div class="hero-3d-ring"></div>
+        <canvas id="hero-canvas"></canvas>
     </div>
 </header>
+<script src="{{ '/assets/hero3d.js' | relative_url }}"></script>
 
 <!-- Flagship -->
-<section class="section">
+<section class="section reveal">
     <h2 class="section-title">Flagship project</h2>
     <article class="card flagship">
         <div class="card-head">
@@ -40,7 +47,7 @@ layout: default
 </section>
 
 <!-- Skills -->
-<section class="section">
+<section class="section reveal">
     <h2 class="section-title">Skills &amp; tools</h2>
     <div class="skills-grid">
         {% for group in c.skills %}
@@ -55,7 +62,7 @@ layout: default
 </section>
 
 <!-- Projects -->
-<section class="section">
+<section class="section reveal">
     <h2 class="section-title">Other projects</h2>
     <div class="projects-grid">
         {% for p in c.projects %}
@@ -76,7 +83,7 @@ layout: default
 </section>
 
 <!-- Experience -->
-<section class="section">
+<section class="section reveal">
     <h2 class="section-title">Education &amp; experience</h2>
     <div class="timeline">
         {% for t in c.timeline %}
@@ -95,7 +102,7 @@ layout: default
 </section>
 
 <!-- Certs + Languages -->
-<section class="section two-col">
+<section class="section reveal two-col">
     <div>
         <h2 class="section-title">Certifications &amp; awards</h2>
         <ul class="tick-list">
