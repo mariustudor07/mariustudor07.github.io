@@ -45,10 +45,17 @@ projects:
   - name: "MotorLog — Vehicle Compliance & Insurance Reminder App"
     period: "2024 – Present"
     tag: "EPQ Independent Research Project"
-    stack: ["Kotlin (Android)", "TypeScript (Web)", "REST API"]
-    summary: "A full-stack mobile app built on the government DVLA API that tells you before your MOT, tax, or insurance runs out."
+    stack: ["TypeScript (Web)", "DVLA API", "REST API"]
+    summary: "A full-stack app built on the government DVLA API that tells you before your MOT, tax, or insurance runs out. Started as my EPQ and grew into a real, live product."
     highlight: "Live at motorlog.app. Won the Old Palmerians' Association Prize for independent research."
     link: "https://www.motorlog.app"
+  - name: "MotorLog — Native Android App"
+    period: "2025 – Present"
+    tag: "Kotlin / Mobile · private repo"
+    stack: ["Kotlin", "Android SDK", "DVLA REST API"]
+    summary: "The native Android build of MotorLog: a Kotlin mobile client that pulls MOT, tax, and insurance status straight from the DVLA API and reminds you before anything lapses."
+    highlight: "Where I learned native Android — app lifecycle, local persistence, and wiring a mobile client to a live REST backend. (Private repo.)"
+    link: ""
   - name: "Odysseus Companion App"
     period: "2026"
     tag: "Open Source Contribution"
