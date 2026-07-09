@@ -1,0 +1,47 @@
+---
+layout: default
+title: Blog
+permalink: /blog/
+---
+<header class="page-head">
+    <h1>Blog &amp; Writeups</h1>
+    <p class="muted">Web exploitation notes and Hack The Box writeups. Filter by category or search.</p>
+</header>
+
+<div class="blog-controls">
+    <div class="filters" id="filters">
+        <button class="filter active" data-category="all">All <span class="count" data-count-all>{{ site.posts.size }}</span></button>
+        {% for cat in site.blog_categories %}
+        {% assign n = site.posts | where: "category", cat | size %}
+        <button class="filter" data-category="{{ cat }}">{{ cat }} <span class="count">{{ n }}</span></button>
+        {% endfor %}
+    </div>
+    <div class="search-wrap">
+        <input type="search" id="search" placeholder="Search titles, tags…" autocomplete="off" aria-label="Search writeups">
+    </div>
+</div>
+
+<ul class="post-list" id="post-list">
+    {% for post in site.posts %}
+    {% capture haystack %}{{ post.title }} {{ post.tags | join: ' ' }} {{ post.excerpt | default: post.summary }}{% endcapture %}
+    <li class="post-card"
+        data-category="{{ post.category }}"
+        data-search="{{ haystack | downcase | strip_html | strip_newlines }}">
+        <a class="post-card-link" href="{{ post.url | relative_url }}">
+            <div class="post-card-top">
+                <span class="badge badge-{{ post.category | slugify }}">{{ post.category }}</span>
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            </div>
+            <h3>{{ post.title }}</h3>
+            {% if post.excerpt %}<p class="post-card-excerpt">{{ post.excerpt }}</p>{% endif %}
+            <div class="chips">
+                {% for tag in post.tags %}<span class="chip chip-sm">#{{ tag }}</span>{% endfor %}
+            </div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<p class="empty" id="no-results" hidden>No writeups match — try a different search or category.</p>
+
+<script src="{{ '/assets/blog-filter.js' | relative_url }}"></script>

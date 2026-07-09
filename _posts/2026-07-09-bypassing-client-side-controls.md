@@ -2,7 +2,9 @@
 layout: post
 title: "Bypassing Client-Side Controls with Burp / Caido"
 date: 2026-07-09
-tags: [webtesting, proxies]
+category: "Web Exploitation"
+tags: [burp, proxies, validation]
+excerpt: "Anything enforced only in the browser is not enforced at all — tampering requests with an intercepting proxy."
 ---
 
 Quick notes from working through client-side control bypasses. The core lesson:

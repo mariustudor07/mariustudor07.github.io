@@ -1,0 +1,125 @@
+# ─────────────────────────────────────────────────────────────
+# EDIT THIS FILE to update the About page. Everything the home
+# page renders comes from here — no need to touch the HTML.
+# ─────────────────────────────────────────────────────────────
+
+profile:
+  name: "Marius Tudor"
+  title: "Cybersecurity Student · Offensive Security Researcher"
+  location: "Cambridge, UK"
+  email: "mariust07@yahoo.com"
+  availability: "Open to internships & placements"
+  taglines:
+    - "Building an AI-powered red team framework."
+    - "Hack The Box team admin at ARU Cambridge."
+    - "I like shipping things that actually get used."
+  bio: >-
+    I'm a first-year Cybersecurity BSc student at ARU Cambridge, and I've been
+    coding for years before that. I run my university's Hack The Box team and
+    spend my own time building an AI-powered penetration testing framework. What
+    I really care about is offensive security and shipping things people actually
+    use. Right now I'm building out MotorLog, a DVLA-powered app that's already
+    live on the web with a Kotlin Android build on the way.
+
+socials:
+  github: "https://github.com/mariustudor07"
+  linkedin: "https://www.linkedin.com/in/mariustudor07"
+  email: "mailto:mariust07@yahoo.com"
+
+flagship:
+  name: "AI-Powered Penetration Testing Framework"
+  period: "2025 – Present"
+  tag: "Personal / Open Source"
+  link: "https://github.com/mariustudor07/ai-pentest-agent"
+  summary: >-
+    A modular red team framework with a local-LLM brain (Ollama) that handles
+    reconnaissance, vulnerability correlation, and reporting on its own. I built
+    it to grow into a polyglot system that covers the full attack surface.
+  stack:
+    - { lang: "Python",     role: "Orchestration + LLM layer",       status: "building" }
+    - { lang: "Go",         role: "High-performance network scanning", status: "planned" }
+    - { lang: "Rust",       role: "Binary analysis",                 status: "planned" }
+    - { lang: "JavaScript", role: "Web vulnerability assessment",    status: "planned" }
+
+projects:
+  - name: "MotorLog — Vehicle Compliance & Insurance Reminder App"
+    period: "2024 – Present"
+    tag: "EPQ Independent Research Project"
+    stack: ["Kotlin (Android)", "TypeScript (Web)", "REST API"]
+    summary: "A full-stack mobile app built on the government DVLA API that tells you before your MOT, tax, or insurance runs out."
+    highlight: "Live at motorlog.app. Won the Old Palmerians' Association Prize for independent research."
+    link: "https://www.motorlog.app"
+  - name: "Odysseus Companion App"
+    period: "2026"
+    tag: "Open Source Contribution"
+    stack: ["Capacitor", "React", "TypeScript", "Python"]
+    summary: "A mobile companion for a self-hosted AI assistant. Pair your phone over QR and control it from anywhere: chat, attachments, voice dictation, email, calendar, notes, and tasks."
+    highlight: "Built on top of the open-source Odysseus project, where I added the whole mobile companion layer."
+    link: "https://github.com/mariustudor07/odysseus-companion-app"
+  - name: "Building Makemore — ML from Scratch"
+    period: "2026"
+    tag: "Learning Project"
+    stack: ["Python", "PyTorch", "Jupyter"]
+    summary: "Building neural-network language models from the ground up — the embeddings, backprop, and attention behind modern transformers. Where my AI/ML skills actually come from."
+    highlight: ""
+    link: "https://github.com/mariustudor07/BuildingMakemore"
+  - name: "PHP IP Tracking & Network Intelligence"
+    period: "2023"
+    tag: "Independent Research"
+    stack: ["PHP", "Networking", "Server Admin"]
+    summary: "A custom server-side IP logging and geolocation system I built to get a real feel for network-layer threat intelligence and the attribution techniques used in offensive work."
+    highlight: ""
+    link: ""
+
+skills:
+  - group: "Languages"
+    items: ["Python", "Kotlin", "TypeScript", "JavaScript", "Rust", "Java", "C", "PHP"]
+  - group: "Security"
+    items: ["Burp Suite", "Nmap", "Metasploit", "Wireshark", "Hack The Box"]
+  - group: "Frameworks / Platforms"
+    items: ["React", "Node.js", "Android (Kotlin)", "REST APIs", "Docker", "Git & GitHub"]
+  - group: "Environment"
+    items: ["Arch Linux (custom)", "Hyprland", "Caelestia", "Linux / Unix", "Bash / Shell"]
+  - group: "AI / ML"
+    items: ["LLM architecture", "Transformer internals", "Tokenisation", "Embeddings", "Prompt engineering"]
+  - group: "Concepts"
+    items: ["Penetration testing", "Red teaming", "APT simulation", "Command & control", "Binary analysis", "Cryptography"]
+
+timeline:
+  - title: "BSc (Hons) Cybersecurity"
+    org: "ARU Cambridge"
+    period: "Sep 2025 – Present"
+    location: "Cambridge, UK"
+    points:
+      - "Course Representative, working between students and faculty to push for a better curriculum."
+      - "Admin of the university Hack The Box team, running our offensive security practice and team strategy."
+  - title: "A Levels — Head of Curriculum & Equality"
+    org: "Palmer's College (USP)"
+    period: "Sep 2023 – Jun 2025"
+    location: "Essex, UK"
+    points:
+      - "Won the Old Palmerians' Association Prize for my independent research (EPQ)."
+      - "Led curriculum development work and represented student interests at institutional level."
+  - title: "GCSEs — Prefect"
+    org: "St Clere's School"
+    period: "Sep 2018 – Jun 2023"
+    location: "Essex, UK"
+    points: []
+
+certifications:
+  - "ISC2 CC (Certified in Cybersecurity) — in progress"
+  - "Microsoft SC-200 (Security Operations Analyst) — in progress"
+  - "Claude Code In Action (Anthropic)"
+  - "AI Fluency For Students (Anthropic)"
+  - "MEI Data Science Taught Course"
+  - "RAF Air Cadets Corporal, Duke of Edinburgh's Award"
+  - "Jack Petchey 'Speak Out' Challenge Winner"
+  - "Future CEO Award (University of East London)"
+
+languages:
+  - name: "English"
+    level: "Fluent"
+  - name: "Romanian"
+    level: "Native"
+  - name: "German"
+    level: "Limited Working"
