@@ -101,11 +101,12 @@ timeline:
     points:
       - "Course Representative, working between students and faculty to push for a better curriculum."
       - "Admin of the university Hack The Box team, running our offensive security practice, team strategy, and CTF events."
-  - title: "A Levels: Computer Science, Maths & Physics"
+  - title: "BTEC Computer Science, A Levels in Maths & Physics"
     org: "USP College"
     period: "Sep 2023 to Jul 2025"
     location: "Essex, UK"
     points:
+      - "Computer Science studied as a BTEC (Level 3, A-level equivalent), with coursework verified by internal and external examiners."
       - "Student Champion for Curriculum and Equality, and Head of Curriculum within the Student Union for two years."
       - "Won the Old Palmerians' Association Prize for my independent research (EPQ)."
   - title: "GCSEs, Prefect"
