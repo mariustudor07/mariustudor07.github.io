@@ -77,11 +77,11 @@ understood attack surface. Worth getting ahead of.
 
 ## The certificates
 
-If you want to check the receipts:
+If you want to check the receipts, each one verifies on Cranium, with a PDF copy on this site too:
 
-- [AI Security Professional](/assets/certs/cranium-ai-security-professional.pdf), Credential ID `58748923-ebef-4e68-87af-5de83e672c71`
-- [AI Red Team](/assets/certs/cranium-ai-red-team.pdf), Credential ID `a338f6d7-c9b8-49f0-9703-f98b97aa59df`
-- [AI Security](/assets/certs/cranium-ai-security.pdf), Credential ID `7b0faee2-84ea-4290-9405-ccdba1106a76`
+- [AI Security Professional](https://learn.cranium.ai/app/certificate/58748923-ebef-4e68-87af-5de83e672c71) ([PDF](/assets/certs/cranium-ai-security-professional.pdf))
+- [AI Red Team](https://learn.cranium.ai/app/certificate/a338f6d7-c9b8-49f0-9703-f98b97aa59df) ([PDF](/assets/certs/cranium-ai-red-team.pdf))
+- [AI Security](https://learn.cranium.ai/app/certificate/7b0faee2-84ea-4290-9405-ccdba1106a76) ([PDF](/assets/certs/cranium-ai-security.pdf))
 
 All three issued by Cranium AI, July 2026.
 
