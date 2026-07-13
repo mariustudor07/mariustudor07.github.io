@@ -116,6 +116,9 @@ timeline:
     points: []
 
 certifications:
+  - "AI Security Professional (Cranium AI)"
+  - "AI Red Team (Cranium AI)"
+  - "AI Security (Cranium AI)"
   - "ISC2 CC (Certified in Cybersecurity), in progress"
   - "Microsoft SC-200 (Security Operations Analyst), in progress"
   - "Claude Code In Action (Anthropic)"

@@ -19,3 +19,4 @@ plugins:
 blog_categories:
   - "Web Exploitation"
   - "HTB Writeups"
+  - "AI Security"

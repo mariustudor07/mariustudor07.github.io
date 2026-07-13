@@ -367,6 +367,8 @@ a:hover { text-decoration: underline; }
 }
 .badge-web-exploitation { color: var(--accent); background: var(--accent-soft); }
 .badge-htb-writeups { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 14%, transparent); }
+.badge-ai-security { color: #7c5cff; background: color-mix(in srgb, #7c5cff 13%, transparent); }
+@media (prefers-color-scheme: dark) { .badge-ai-security { color: #b3a1ff; background: color-mix(in srgb, #b3a1ff 15%, transparent); } }
 
 .empty { color: var(--muted); text-align: center; padding: 44px 0; }
 
