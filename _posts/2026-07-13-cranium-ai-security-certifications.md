@@ -7,7 +7,7 @@ tags: [ai-security, red-team, llm, prompt-injection, cranium]
 excerpt: "I sat the Cranium AI Security, AI Red Team, and AI Security Professional certs back to back. Not for the badges, but because I'm building a tool that attacks the exact thing they defend."
 ---
 
-> I picked up three Cranium AI certifications this month: AI Security, AI Red
+> I picked up three Cranium AI certifications over the last couple of months: AI Security, AI Red
 > Team, and AI Security Professional. The honest reason isn't the LinkedIn line.
 > It's that I've spent a year building an AI-powered pentest framework, and at
 > some point you have to stop guessing at how these systems break and go learn
