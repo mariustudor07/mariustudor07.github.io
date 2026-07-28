@@ -1,0 +1,199 @@
+---
+layout: post
+title: "THM: The Quiet Room"
+date: 2026-07-28
+category: "Web Exploitation"
+difficulty: "Very Easy"
+tags: [thm, hacker-holidays, web, git, source-code-disclosure, directory-enumeration, gobuster]
+excerpt: "Day 2 of Hacker Holidays is an actual box this time. A pretty hotel landing page on port 8080, a night-shift developer who shipped the .git folder along with the site, and a staging flag left sitting in a README that was never meant to leave the laptop."
+---
+
+<figure>
+  <img src="{{ '/assets/img/quiet-room-briefing.png' | relative_url }}" alt="TryHackMe room page: Concierge Briefing for the Byte Lotus guest platform, noting port 8080 is wide open and the rooms it never lists are the ones worth finding. Task list: dump the exposed source code, find the flag.">
+  <figcaption>The briefing does the same thing every room in this event does: it tells you the answer in flavour text. "Port 8080 is wide open, and the rooms it never lists are the ones worth finding." That's a directory-enumeration hint dressed up as a hotel.</figcaption>
+</figure>
+
+After a chatbot on Day 1 (The Concierge) and an OSINT trail before that (The Brochure),
+Day 2 of TryHackMe's Hacker Holidays finally hands you a real machine to point tools
+at. Same universe, the Byte Lotus Hotel, except this time there's an IP, a port, and
+a web app that was "shipped in a hurry" by a night-shift developer. The briefing even
+says it out loud: he "shipped more than the website." So the whole room is about
+finding the extra thing that came along for the ride.
+
+The task list is only two boxes: dump the exposed source code, and find the flag. That
+framing basically tells you this is a source-disclosure room before you've typed a
+single command.
+
+## Recon
+
+First thing, a port scan to see what I'm actually talking to:
+
+```bash
+sudo nmap -sC -sV -A 10.129.153.146
+```
+
+One service worth caring about:
+
+```
+8080/tcp open  http    Werkzeug httpd 3.0.1 (Python 3.12.3)
+```
+
+That's a Flask app running on the built-in Werkzeug development server. Two things
+register straight away. One, it matches the "port 8080 is wide open" line from the
+briefing. Two, and this matters later, the Werkzeug dev server is single-threaded and
+not built to take a beating. It's a note-to-self, not a finding, but it saved me some
+confusion further down.
+
+The site itself is a nice-looking static hotel landing page. "Byte Lotus," gold serif
+type, a Reserve a Stay button, a little footer that reads "guest experience platform
+· build staging." Nothing clickable does anything interesting, and that footer word,
+*staging*, is the tell. This is a build that wasn't meant to be public yet.
+
+<figure>
+  <img src="{{ '/assets/img/quiet-room-site.png' | relative_url }}" alt="Byte Lotus hotel landing page: dark theme, gold serif Byte Lotus heading, an arrivals intro paragraph, a Reserve a Stay button, and a footer reading guest experience platform, build staging.">
+  <figcaption>The whole front end. Pretty, and completely inert. The interesting part isn't the page you can see, it's the repository sitting next to it. Note the "build staging" in the footer.</figcaption>
+</figure>
+
+## Finding the exposed repo
+
+Nothing to click means it's time to enumerate directories. The classic mistake a hurried
+deploy makes is copying the entire project folder to the web root, `.git` directory and
+all. So that's the first thing I looked for:
+
+```bash
+gobuster dir -u http://10.129.153.146:8080 \
+  -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt \
+  -x txt,html
+```
+
+And there it was:
+
+```
+.git                 (Status: 200) [Size: 437]
+.git/config          (Status: 200) [Size: 92]
+.git/logs/           (Status: 200) [Size: 165]
+.git/index           (Status: 200) [Size: 289]
+.git/HEAD            (Status: 200) [Size: 21]
+```
+
+`.git/HEAD` returning `ref: refs/heads/main` is the confirmation. The version control
+folder is served straight off the web root, which means the full source and, more
+importantly, the full commit history is downloadable by anyone who asks for it.
+
+## A short detour where I broke the box
+
+This is the honest part. I fired git-dumper at it and it immediately timed out, and by
+the time I looked, the whole machine was gone. No ping, no 8080, no SSH. Dead.
+
+For a second I blamed my VPN, but the tunnel was fine and I could still reach everything
+else. What actually happened lines up with that nmap result from earlier: the target is
+a single-threaded Werkzeug dev server, and gobuster had just thrown a few hundred
+concurrent requests at it followed by git-dumper opening ten parallel connections. A
+production server shrugs that off. A Flask dev box does not. Between that and the room's
+own timer, the machine tipped over and I had to regenerate it, which handed me a fresh
+IP.
+
+Lesson filed: when the banner says Werkzeug or "development server," treat it like it's
+made of glass. Turn the concurrency down.
+
+## Dumping it properly
+
+Once the new box was up, I confirmed the repo was still exposed and then pulled it down
+gently instead of all at once:
+
+```bash
+curl -s http://10.129.153.146:8080/.git/HEAD      # ref: refs/heads/main, good
+git-dumper -j 4 -r 5 -t 15 http://10.129.153.146:8080/.git/ ./source
+```
+
+The flags are the whole point of not repeating my mistake: `-j 4` drops it to four
+parallel jobs instead of the default ten, `-r 5` retries anything flaky, and `-t 15`
+gives each request a fifteen-second timeout so the VPN latency doesn't trip it. It walked
+the object store, rebuilt the tree, and ran a clean `git checkout`. Source recovered.
+
+git-dumper is the right tool here because it doesn't need directory listing to be
+enabled. Even if the server refuses to show you the contents of `.git/objects/`, the tool
+reads `HEAD`, the refs, and the packed objects, then follows the object graph hash by
+hash to reconstruct everything. Listing being on just makes it faster.
+
+## What was in the repo
+
+Small project, one commit:
+
+```bash
+cd source
+git log --oneline --all
+# 0f13550 initial Byte Lotus guest platform
+ls
+# app.js  index.html  README.md
+```
+
+`index.html` is the landing page I'd already seen. `app.js` is a front-end stub, but it
+does leak the shape of the backend:
+
+```javascript
+// Byte Lotus guest app — front-end stub
+// concierge personalization is served from the profiling service.
+const API = "/api/guest";
+```
+
+A `/api/guest` endpoint and a "profiling service" that personalizes the concierge. That
+ties neatly back into the event's running theme (the profile "assembled from two
+breakfasts and a livestream"), and it's the sort of thing I'd note down as a lead for a
+later day.
+
+The flag, though, wasn't buried in history or hidden in any clever place. It was sitting
+in plain text in the `README.md`, under a line that literally flags itself:
+
+```
+Staging flag (remove before launch): THM{ ... }
+```
+
+I'm leaving the value out, same as always. The point is *where* it was, not what it says.
+A developer dropped a staging secret into a README as a reminder, told themselves they'd
+strip it before launch, and then deployed the folder with the note and the `.git` history
+still attached. The room even makes this the joke: the README says "Do not deploy this
+folder to production," and then the folder is deployed to production.
+
+Paste it into the answer box and the room's done.
+
+## Why it works
+
+None of this is exotic, which is exactly why it's worth writing down. Two very common
+real-world mistakes stacked together:
+
+**The `.git` directory got shipped to the web root.** This is one of the most reliable
+web findings there is. Deploy pipelines that do `git clone` or `cp -r` onto a server, and
+web roots that serve every file under them, combine to expose the entire history of a
+project. Anyone who requests `/.git/HEAD` and gets a `200` can reconstruct your whole
+repo, including files you deleted in later commits, because git keeps the old objects
+around. The fix is boring and total: don't serve dotfiles, and don't put the working
+tree in the web root.
+
+**A secret lived in a tracked file.** Even if the flag had been "removed" in a later
+commit, git-dumper would still have recovered it from the object store, because deleting
+a line doesn't delete the blob. Secrets that touch a repository should be considered
+burned. The staging flag here never even got that far, it was still sitting in `HEAD`,
+but the principle is the one to carry: credentials, keys, and codes belong in
+environment variables or a secrets manager, never committed, and if one slips in, it gets
+rotated, not just deleted.
+
+## Takeaways
+
+- **Read the flavour text as a checklist.** "Port 8080 is wide open" and "shipped more
+  than the website" are the objective in disguise. This whole event hides the walkthrough
+  in the theme, and Day 2 is no exception.
+- **Always check for `/.git` on a web target.** It's a five-second `curl /.git/HEAD` and
+  the payoff is the entire source and history. It's near the top of my list on any web
+  box now.
+- **git-dumper doesn't need directory listing.** It rebuilds the repo from the object
+  graph, so a disabled listing isn't the dead end it looks like.
+- **Respect a dev server.** When nmap says Werkzeug, or Flask, or anything with
+  "development" in the banner, dial the concurrency down before you scan or dump. I
+  learned that one by killing the box and waiting for a new IP.
+- **Deleted is not gone in git.** Anything ever committed can be pulled back out of the
+  objects, so treat any secret that has touched a repo as compromised.
+
+> Room: Hacker Holidays Day 2, "The Quiet Room" (Byte Lotus guest platform) on
+> TryHackMe. Category Web, Very Easy, 30 points. The flag is left out on purpose, as
+> always. It's a genuinely tidy little source-disclosure room, go pull the repo yourself.
