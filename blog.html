@@ -15,6 +15,8 @@ permalink: /blog/
         {% assign n = site.posts | where: "category", cat | size %}
         <button class="filter" data-category="{{ cat }}">{{ cat }} <span class="count">{{ n }}</span></button>
         {% endfor %}
+        {% assign thm_n = site.posts | where_exp: "p", "p.tags contains 'thm'" | size %}
+        {% if thm_n > 0 %}<button class="filter" data-category="thm">THM Writeups <span class="count">{{ thm_n }}</span></button>{% endif %}
     </div>
     <div class="search-wrap">
         <input type="search" id="search" placeholder="Search titles, tags…" autocomplete="off" aria-label="Search writeups">
@@ -26,6 +28,7 @@ permalink: /blog/
     {% capture haystack %}{{ post.title }} {{ post.tags | join: ' ' }} {{ post.excerpt | default: post.summary }}{% endcapture %}
     <li class="post-card"
         data-category="{{ post.category }}"
+        data-tags="{{ post.tags | join: ' ' | downcase }}"
         data-search="{{ haystack | downcase | strip_html | strip_newlines }}">
         <a class="post-card-link" href="{{ post.url | relative_url }}">
             <div class="post-card-top">

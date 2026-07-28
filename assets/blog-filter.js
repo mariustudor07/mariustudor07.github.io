@@ -10,7 +10,10 @@
     var q = (search.value || '').trim().toLowerCase();
     var visible = 0;
     cards.forEach(function (card) {
-      var matchCat = activeCategory === 'all' || card.getAttribute('data-category') === activeCategory;
+      var tags = (card.getAttribute('data-tags') || '').split(' ');
+      var matchCat = activeCategory === 'all'
+        || card.getAttribute('data-category') === activeCategory
+        || tags.indexOf(activeCategory) !== -1;
       var matchText = q === '' || (card.getAttribute('data-search') || '').indexOf(q) !== -1;
       var show = matchCat && matchText;
       card.hidden = !show;
