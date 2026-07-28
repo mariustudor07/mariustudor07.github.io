@@ -369,6 +369,8 @@ a:hover { text-decoration: underline; }
 .badge-htb-writeups { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 14%, transparent); }
 .badge-ai-security { color: #7c5cff; background: color-mix(in srgb, #7c5cff 13%, transparent); }
 @media (prefers-color-scheme: dark) { .badge-ai-security { color: #b3a1ff; background: color-mix(in srgb, #b3a1ff 15%, transparent); } }
+.badge-osint { color: #c0711a; background: color-mix(in srgb, #c0711a 13%, transparent); }
+@media (prefers-color-scheme: dark) { .badge-osint { color: #f0ad4e; background: color-mix(in srgb, #f0ad4e 15%, transparent); } }
 
 .empty { color: var(--muted); text-align: center; padding: 44px 0; }
 
@@ -386,6 +388,10 @@ a:hover { text-decoration: underline; }
 .post-body h3 { font-family: var(--display); font-size: 1.2rem; margin: 28px 0 10px; font-weight: 700; }
 .post-body p { margin: 0 0 16px; }
 .post-body img { max-width: 100%; border-radius: var(--radius-sm); }
+.post-body figure { margin: 24px 0; }
+.post-body figure img { display: block; margin: 0 auto; }
+.post-body figure.figure-narrow img { max-width: 420px; width: 100%; }
+.post-body figcaption { margin-top: 8px; text-align: center; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
 .post-body a { text-decoration: underline; text-underline-offset: 2px; }
 .post-body ul, .post-body ol { padding-left: 22px; margin: 0 0 16px; }
 .post-body li { margin: 6px 0; }
