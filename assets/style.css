@@ -371,6 +371,8 @@ a:hover { text-decoration: underline; }
 @media (prefers-color-scheme: dark) { .badge-ai-security { color: #b3a1ff; background: color-mix(in srgb, #b3a1ff 15%, transparent); } }
 .badge-osint { color: #c0711a; background: color-mix(in srgb, #c0711a 13%, transparent); }
 @media (prefers-color-scheme: dark) { .badge-osint { color: #f0ad4e; background: color-mix(in srgb, #f0ad4e 15%, transparent); } }
+.badge-cloud { color: #1f7ac2; background: color-mix(in srgb, #1f7ac2 13%, transparent); }
+@media (prefers-color-scheme: dark) { .badge-cloud { color: #6fb2f0; background: color-mix(in srgb, #6fb2f0 15%, transparent); } }
 
 .empty { color: var(--muted); text-align: center; padding: 44px 0; }
 
