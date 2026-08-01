@@ -8,6 +8,11 @@ tags: [thm, hacker-holidays, forensics, wireshark, pcap, base64, xor, cyberchef,
 excerpt: "No box to attack this time, just a packet capture and a flag that was smuggled out one HTTP cookie at a time. Thirty fragments hidden in a session cookie, base64 on the outside, a single-byte XOR underneath, and one mistake of mine that made a simple cipher look far scarier than it was."
 ---
 
+<figure class="figure-narrow">
+  <img src="{{ '/assets/img/packed-light-briefing.png' | relative_url }}" alt="TryHackMe room page: Concierge Briefing for Packed Light. Category Forensics, difficulty Easy, 60 points. Tiny packets at odd hours, suspiciously regular, smuggling out the data equivalent of a hotel towel folded neatly inside ordinary traffic. A capture from the guest network is provided. The story tag notes a laptop pinging a random 8080 address every few seconds, with request headers that look off and a crypto layer on top.">
+  <figcaption>The briefing lays out the whole room in flavour text: regular little packets hiding data inside ordinary-looking traffic, a beacon on port 8080, something odd in the HTTP headers, and a crypto layer to peel. That's the map for the entire solve.</figcaption>
+</figure>
+
 This is a network forensics room, so it breaks the usual pattern for this event.
 There's no IP to scan and no shell to catch. Instead you're handed a single packet
 capture, `traffic.pcapng`, and the whole job is to reconstruct something that was

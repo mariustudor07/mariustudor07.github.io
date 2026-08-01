@@ -8,6 +8,11 @@ tags: [thm, hacker-holidays, boot2root, yaml, deserialization, rce, reverse-shel
 excerpt: "A beach bar jukebox that parses playlists with yaml.unsafe_load, which is a fancy way of saying it runs whatever you paste at it. The exploit was quick once I understood it. What actually ate my evening was my VPN, my own netcat listener, and a firewall I set up on my own attack box that was silently eating every reverse shell."
 ---
 
+<figure class="figure-narrow">
+  <img src="{{ '/assets/img/beach-bar-briefing.png' | relative_url }}" alt="TryHackMe room page: Concierge Briefing for Beach Bar. Category Boot2Root, difficulty Easy, 60 points. The beach bar's jukebox takes requests from anyone with a phone, a song queue that accepts a little more than song titles, and the night-shift developer wired the jukebox straight into the floor with the trimmings still attached. Itinerary: find the user flag and the root flag.">
+  <figcaption>The briefing hides the vulnerability in holiday language, same as every room in this event. "A song queue that accepts a little more than song titles" and a jukebox "wired straight into the floor with the trimmings still attached" is user input flowing into an unsafe parser, written out as flavour.</figcaption>
+</figure>
+
 This one is a proper boot2root, and the first thing I want to say about it is that
 the box was not the hard part. The box is rated Easy and it deserves that rating.
 What made this a roughly ninety minute grind instead of a twenty minute one was
