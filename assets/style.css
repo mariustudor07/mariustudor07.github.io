@@ -375,6 +375,8 @@ a:hover { text-decoration: underline; }
 @media (prefers-color-scheme: dark) { .badge-cloud { color: #6fb2f0; background: color-mix(in srgb, #6fb2f0 15%, transparent); } }
 .badge-digital-forensics { color: #1f9c8f; background: color-mix(in srgb, #1f9c8f 13%, transparent); }
 @media (prefers-color-scheme: dark) { .badge-digital-forensics { color: #5fd6c6; background: color-mix(in srgb, #5fd6c6 15%, transparent); } }
+.badge-learning { color: #4a8a2f; background: color-mix(in srgb, #4a8a2f 13%, transparent); }
+@media (prefers-color-scheme: dark) { .badge-learning { color: #9bd67a; background: color-mix(in srgb, #9bd67a 15%, transparent); } }
 
 .empty { color: var(--muted); text-align: center; padding: 44px 0; }
 
