@@ -22,3 +22,34 @@
 
   els.forEach(function (el) { io.observe(el); });
 })();
+
+// Inline spoilers: hide a value behind a solid bar until the reader clicks
+// (or presses Enter/Space on) it. The blur/bar is done in CSS, so this only
+// adds the click-to-reveal, the keyboard support, and the ARIA wiring, and
+// authors just write <span class="spoiler">value</span>.
+(function () {
+  var spoilers = document.querySelectorAll('.spoiler');
+  if (!spoilers.length) return;
+
+  spoilers.forEach(function (s) {
+    s.setAttribute('tabindex', '0');
+    s.setAttribute('role', 'button');
+    if (!s.hasAttribute('aria-label')) {
+      s.setAttribute('aria-label', 'Spoiler, click to reveal');
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('.spoiler');
+    if (s) s.classList.toggle('revealed');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var a = document.activeElement;
+    if (a && a.classList && a.classList.contains('spoiler')) {
+      e.preventDefault();
+      a.classList.toggle('revealed');
+    }
+  });
+})();

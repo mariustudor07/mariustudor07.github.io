@@ -378,6 +378,31 @@ a:hover { text-decoration: underline; }
 .badge-learning { color: #4a8a2f; background: color-mix(in srgb, #4a8a2f 13%, transparent); }
 @media (prefers-color-scheme: dark) { .badge-learning { color: #9bd67a; background: color-mix(in srgb, #9bd67a 15%, transparent); } }
 
+/* Inline spoiler: hide a value (a flag, a credential, a decoded answer)
+   behind a solid bar until the reader clicks it, so a writeup can give
+   hints without spelling out the answer up front. Discord-style.
+   Progressive enhancement: even with JS off the value stays hidden, and
+   keyboard focus (:focus-visible) reveals it so nobody is locked out. */
+.spoiler {
+  background: color-mix(in srgb, currentColor 82%, transparent);
+  color: transparent;
+  border-radius: 5px;
+  padding: 0 5px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.spoiler:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.spoiler.revealed,
+.spoiler:focus-visible {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  color: inherit;
+  cursor: text;
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
 .empty { color: var(--muted); text-align: center; padding: 44px 0; }
 
 /* ---------- Post ---------- */
