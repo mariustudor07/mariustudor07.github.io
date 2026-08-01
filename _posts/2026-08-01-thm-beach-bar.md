@@ -17,7 +17,7 @@ This one is a proper boot2root, and the first thing I want to say about it is th
 the box was not the hard part. The box is rated Easy and it deserves that rating.
 What made this a roughly ninety minute grind instead of a twenty minute one was
 everything around the exploit: my VPN, my listener, and, best of all, a firewall I
-had set up on my own laptop that was quietly dropping every reverse shell before it
+had set up on my own PC that was quietly dropping every reverse shell before it
 could reach me. So this writeup is two stories stacked on top of each other. There's
 the clean exploit chain, which is genuinely worth knowing, and then there's the
 saga of me fighting my own environment, which is the part I think will actually save
@@ -192,7 +192,7 @@ the payload definitely executed (that `os.system` return code again), and yet no
 Worse, the return code was now non-zero, meaning the command was running but failing.
 That non-zero code was the clue I almost missed.
 
-The thing I'd forgotten is that a while back I had hardened my own attack laptop with
+The thing I'd forgotten is that a while back I had hardened my own attack PC with
 `ufw`, and I'd set the inbound policy to drop everything:
 
 ```

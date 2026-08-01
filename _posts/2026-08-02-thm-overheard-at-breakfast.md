@@ -16,7 +16,7 @@ excerpt: "A screenshot of a breakfast-table chat, a free profile tool that start
 After yesterday's box I needed this one. The day before was Beach Bar, a Boot2Root
 that fought me for about ninety minutes, and almost none of that fight was the actual
 hacking. It was VPN plumbing, a listener I kept killing, and a firewall on my own
-laptop quietly eating my reverse shells. So sitting down to an OSINT room with zero
+PC quietly eating my reverse shells. So sitting down to an OSINT room with zero
 infrastructure, no VPN, no shell, no tooling to babysit, just a puzzle to read, was
 genuinely a relief. And it's worth saying up front, because it's a lesson in itself:
 a challenge feeling smooth or painful often has very little to do with how hard the
@@ -147,7 +147,7 @@ reproducible.
   always in the hack.
 
 A short, satisfying one, and a nice palate cleanser after a Boot2Root that mostly
-taught me about my own laptop. Sometimes the whole challenge is just noticing that two
+taught me about my own PC. Sometimes the whole challenge is just noticing that two
 things you were told are actually the same thing.
 
 > Room: Overheard at Breakfast on TryHackMe (Hacker Holidays 2026), OSINT, Easy, 60
