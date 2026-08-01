@@ -10,6 +10,10 @@ permalink: /blog/:title/
 markdown: kramdown
 highlighter: rouge
 
+# Build posts dated in the future too, so a writeup written near a
+# day/timezone boundary still shows up instead of being silently dropped.
+future: true
+
 # Generates /feed.xml (Atom) from _posts. Powers the auto-updating
 # "latest writeups" list on my GitHub profile README.
 plugins:
