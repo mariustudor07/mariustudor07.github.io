@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "THM: Overheard at Breakfast"
-date: 2026-08-02
+date: 2026-08-01 16:10:00
 category: "OSINT"
 difficulty: "Easy"
 tags: [thm, hacker-holidays, osint, gravatar, email-hash, cyberchef, base64, social-media]

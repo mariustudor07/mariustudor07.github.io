@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "THM: Packed Light"
-date: 2026-07-31
+date: 2026-07-31 18:00:00
 category: "Digital Forensics"
 difficulty: "Easy"
 tags: [thm, hacker-holidays, forensics, wireshark, pcap, base64, xor, cyberchef, cryptography]

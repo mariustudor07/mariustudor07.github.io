@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "THM: Beach Bar"
-date: 2026-08-01
+date: 2026-07-31 19:30:00
 category: "Web Exploitation"
 difficulty: "Easy"
 tags: [thm, hacker-holidays, boot2root, yaml, deserialization, rce, reverse-shell, privilege-escalation, credential-reuse]
