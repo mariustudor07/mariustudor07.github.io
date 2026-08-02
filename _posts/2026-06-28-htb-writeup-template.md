@@ -62,3 +62,27 @@ id   # uid=0(root)
 - What was the intended path, and did I find it?
 - Where did I waste time, and what would I check sooner next time?
 - One technique worth remembering for the next box.
+
+## Note to self: hiding answers behind spoiler bars
+
+When I want to show the methodology but not hand over the exact payload off the rip,
+I hide the "answer" command behind a click-to-reveal bar. Reader gets the reasoning,
+then clicks to see the actual string. Like <span class="spoiler">this</span>.
+
+Usage, in prose only (NOT inside a ``` fenced code block, the HTML renders literally
+in there and won't hide anything):
+
+`The body that logged me in was <span class="spoiler"><code>username=x&amp;password[$ne]=null</code></span>.`
+
+Rules I keep tripping over:
+- Wrap the value in `<code>` inside the span if I want it monospaced.
+- HTML-escape special characters or they break the markup: `<` becomes `&lt;`,
+  `>` becomes `&gt;`, `&` becomes `&amp;`. So an EJS payload like `<%= 7*7 %>`
+  is written `&lt;%= 7*7 %&gt;` inside the span.
+- Keep the recon and standard commands shown normally in code fences. Only cover the
+  lines that actually pop the box (final payloads, decoded flags, reused creds).
+- Add a one-line heads-up near the top of the post telling readers the grey bars are
+  click-to-reveal, so they know it's deliberate.
+
+Styling is in `assets/style.css` (`.spoiler`) and the click/keyboard wiring is in
+`assets/reveal.js`, both already loaded site-wide, so nothing extra to import per post.
