@@ -265,13 +265,16 @@ opening the file the normal way:
 
 <span class="spoiler"><code>debugfs -R "cat /root/root.txt" /dev/nvme0n1p1</code></span>
 
-And out came the flag:
+And out came the flag, redacted here like all the others:
 
-<span class="spoiler"><code>THM{r4w_d1sk_4cc3ss_w4s_t00_much}</code></span>
+```
+THM{[redacted]}
+```
 
-I'm leaving that one readable-on-click because the flag itself is the punchline. The same
-trick would read `/root/.ssh/id_rsa` for a full interactive root shell if I wanted to go
-further, but the flag was the objective.
+I'm keeping the value out (TryHackMe's walkthrough rules ask you not to publish flags),
+but the flag text on this box is genuinely a punchline, it spells out that raw disk
+access was too much to hand out. The same trick would read `/root/.ssh/id_rsa` for a full
+interactive root shell if I wanted to go further, but the flag was the objective.
 
 ## The honest bit: why the user was easy and root was hard
 
@@ -336,5 +339,5 @@ Every bug here is a real-world one, so it's worth stating the fixes plainly:
 
 > Room: Do Not Disturb on TryHackMe (Hacker Holidays 2026), Boot2Root, Medium, 90 points.
 > Four techniques, four users, one clean climb from a login bypass all the way to reading
-> root off the raw disk. Flags left out (bar the one that's its own punchline, and even
-> that one you have to click).
+> root off the raw disk. Both flags left out, as always. The root one's text is a punchline
+> worth earning yourself.
