@@ -5,7 +5,7 @@ date: 2026-08-04 17:00:00
 category: "Cloud"
 difficulty: "Medium"
 tags: [thm, hacker-holidays, cloud, azure, blob-storage, sas-token, key-vault, service-principal, secret-versioning]
-excerpt: "My first proper Azure box, and easily the twistiest thing I've done. A seed-phrase backup kiosk that hands you a storage credential for free in its own network traffic, an over-scoped SAS token that reaches far past the one file the page writes, a service principal hiding in a backup, and finally a Key Vault where the real answer is a previous version of a secret. I got lost more than once. Most of the lessons are in the dead ends."
+excerpt: "My first proper Azure box, and easily the twistiest thing I've done. A seed-phrase backup kiosk that hands you a storage credential for free in its own network traffic, an over-scoped SAS token that lets you list the whole storage account and find a container the site never mentions, a service principal sitting inside it, and finally a Key Vault where the real answer is a previous version of a secret. I got lost more than once, and most of the lessons are in the dead ends."
 ---
 
 <figure class="figure-narrow">
@@ -49,6 +49,26 @@ for that first. CryptoCabana spelled out the entire path:
 So before touching anything I already expected: the site leaks a storage credential, that
 credential is over-privileged, it leads to a second secret store, and in that store I'll
 need to read the previous version of something. That is exactly how it played out.
+
+## The credentials I was given can see nothing
+
+The room hands you Azure CLI access as a low-privilege user (something like
+`usr-...@thmctf.onmicrosoft.com`) in Cloud Shell, and the beginner instinct, which was
+mine, is to just ask Azure what's there:
+
+```bash
+az account show          # works, I'm authenticated
+az resource list         # []
+az storage account list  # []
+az keyvault list         # []
+```
+
+Empty, empty, empty. This user has no RBAC over any of the target resources, so the normal
+control-plane path (log in, list resources, read them) is a dead end by design. I also
+burned time hunting for the storage account in the Azure Portal before accepting the same
+thing there: I genuinely cannot see it. The point the box is making with this first move is
+that the access I need doesn't belong to my user at all. It belongs to the website. So
+that's where I went looking.
 
 ## Step 1: the kiosk hands you a credential for free
 
@@ -102,75 +122,103 @@ containers, list every blob in them, and read their contents. That is enormously
 "back up one file," and it's the actual vulnerability: a credential shipped to the client,
 scoped far past its job.
 
-## Step 2: following the trust the page never points at
+## Step 2: listing the whole account, and the hidden container
 
 Itinerary item two is to follow that credential somewhere the page never goes. The page only
-ever touches `backups/backup-<timestamp>.txt`. But with read and list, I can list the whole
-container and see everything else in it:
+ever touches the `backups` container, but `srt=sco` includes **s**ervice scope, so the token
+can query the storage account itself. That means I can list every container in the account,
+not just the one the page uses:
 
 ```
-https://cryptocabanaf5scjagc.blob.core.windows.net/backups?restype=container&comp=list&<SAS>
+curl -s "https://cryptocabanaf5scjagc.blob.core.windows.net/?comp=list&$SAS"
 ```
 
-And this is where I got properly stuck, so here are the dead ends, because they taught me
-more than the answer did.
+Simple in hindsight. Getting that one line to actually run is where I lost most of the
+afternoon, so here are the dead ends, because they taught me more than the answer did.
 
-**The signature transcription nightmare.** I first tried retyping the token by reading it off
-the URL bar, and I kept getting authentication failures. The reason was stupid and it cost me
-a lot of time: the signature is base64, and base64 contains characters that look identical in
-a lot of fonts. I had a capital `I` versus a lowercase `l` I could not tell apart, and I kept
-guessing wrong. Do not retype a SAS signature by eye. The fix that finally killed the
-guessing was to copy it exactly: right-click the request in the Network tab and use **Copy
-as cURL** (or Copy URL), so the byte-exact signature comes across with zero transcription.
-
-**The double question mark.** The URL the app built had a suspicious `??` in it
-(`backup-<ts>.txt??sv=...`). That malformed pair sent me down a rabbit hole about whether the
-second `?` was meaningful. For the REST list call it isn't, you want a single `?` before
-`restype`, and rewriting the path cleanly from the copied request sidestepped the whole
-thing.
-
-**"Signature fields not well formed."** Once I stopped mistyping the signature, the error
-changed to this, and it's a genuinely useful message. It isn't "wrong signature," it's
-"these SAS parameters don't match the operation you're asking for." That was the nudge to
-actually read the parameters (the `srt=sco` account-SAS detail above) rather than keep
-brute-forcing characters.
-
-**CORS, again.** Trying to do the listing from the browser kept failing the preflight. Same
-lesson as before: stop using the browser for this. A plain `curl` or Azure Cloud Shell has no
-CORS, no same-origin policy, nothing. The token works fine the moment you take it out of the
-browser.
-
-Once I was copying the exact token and running it from a terminal instead of the browser, the
-list call finally returned XML, and it listed **more than the single backup the page had ever
-written**. That's the "somewhere the page never points" payoff: the backups the kiosk quietly
-kept were all sitting there, readable, because the token it leaked could list and read them
-all.
-
-## Step 3: the pivot into a service principal
-
-*(This is the one connective step I'm reconstructing from memory rather than a saved log, so
-treat the exact details lightly.)* Among the blobs the listing exposed was a backup that
-should never have been in reachable storage: it held the credentials for an Azure **service
-principal** (an app registration's ID, its client secret, and the tenant). A service
-principal is a non-human identity, basically a login for an application, and these creds had
-been "backed up" into the very storage the leaked SAS could read. That's the second, more
-valuable set of keys the briefing promised.
-
-With those, I could authenticate as that identity properly, not with a storage token but as a
-real Azure principal:
+**Retyping the signature by eye.** I first tried building the token by reading it off the URL
+bar, and every attempt failed with "Authentication failure" or "Signature fields not well
+formed." Three separate reasons, all maddening: the base64 signature has characters that look
+identical in most fonts (I could not tell a capital `I` from a lowercase `l`); the signature
+was URL-encoded in the address, so `%2F` needed turning back into `/` and `%3D` into `=`; and
+the shell kept mangling the special characters when I pasted it bare. The fixes, together:
+use **Copy as cURL** from the Network tab so the signature comes across byte-exact,
+URL-decode it, and store the whole thing in a single-quoted variable so the shell leaves it
+alone:
 
 ```bash
-az login --service-principal -u <APP_ID> -p <CLIENT_SECRET> --tenant <TENANT_ID>
+SAS='sv=2022-11-02&ss=b&srt=sco&sp=rl&se=2099-12-31T23:59:59Z&st=2024-01-01T00:00:00Z&spr=https&sig=<SAS_SIGNATURE>'
 ```
 
-From there, enumerating what this principal could see turned up an Azure **Key Vault**,
-`ccabana-kv-f5scjagc`. Key Vault is Azure's managed secret store, and getting to it meant I'd
-climbed exactly the ladder the briefing described: leaked storage token, to a backed-up
-identity, to the vault that identity guards.
+**The stray double question mark.** The URL the app built had a `??` (one of them showing up
+as `%3F`) sitting before `sv=`. That malformed pair sent me down a rabbit hole about whether
+the second `?` meant something. It doesn't, you want a single `?` before your query, and
+rewriting the URL cleanly sidestepped it.
 
-## Step 4: the vault, and the "five minutes before" trick
+**"Signature fields not well formed" is a real clue.** Once I stopped mistyping, this error
+is Azure telling you the SAS parameters don't match the operation, not that the signature is
+wrong. That's what finally pushed me to read `srt=sco` properly and realise I had
+service-level scope to work with.
 
-Listing the vault's secrets gave four of them:
+**CORS.** Doing any of this from the browser's own JavaScript kept failing the preflight. The
+fix is the same every time: get out of the browser. `curl` and Cloud Shell have no CORS and
+no same-origin policy. You can even paste a SAS blob URL straight into the browser's address
+bar and it loads, because that's a top-level navigation, not a cross-origin fetch.
+
+With the token byte-exact and running from a terminal, the account list finally returned XML
+with three `<Name>` tags:
+
+- `$web`, the static site's own files.
+- `backups`, the container the page writes to, and it was empty.
+- **`vault`**, one the website never references anywhere.
+
+`vault` is the hidden container, the "somewhere the page never points you." Listing it:
+
+```
+curl -s "https://cryptocabanaf5scjagc.blob.core.windows.net/vault?restype=container&comp=list&$SAS"
+```
+
+returned two blobs, `seed_phrase.txt` and `backup-service-account.json`, both readable
+because the leaked token could read anything in the account.
+
+One more dead end here, and it's an instructive one. Because 0xMia's hint was all about "what
+did it look like five minutes before," I assumed the versioning trick lived in blob storage,
+and spent ages throwing `include=versions,deleted,snapshots` at these containers. All empty.
+The rotation hint was real, but it applied to the *final* vault I hadn't reached yet (Azure
+Key Vault), not the storage I'd just found. Right idea, wrong layer.
+
+## Step 3: the two blobs, and the pivot to a service principal
+
+Reading the two blobs (paste the SAS blob URL in the browser, or curl):
+
+```bash
+curl -s "https://cryptocabanaf5scjagc.blob.core.windows.net/vault/seed_phrase.txt?$SAS"
+curl -s "https://cryptocabanaf5scjagc.blob.core.windows.net/vault/backup-service-account.json?$SAS"
+```
+
+- `seed_phrase.txt` was a twelve-word recovery phrase. Tempting, and a decoy, it's the same
+  fake phrase the kiosk pretends to safeguard, and it isn't the objective.
+- `backup-service-account.json` was the prize: an Azure **service principal** credential,
+  with a `client_id`, a `client_secret`, a `tenant_id`, and even a `key_vault_uri` pointing
+  straight at `ccabana-kv-f5scjagc`. This is the "second, more valuable set of keys."
+
+A service principal is a non-human identity, a login for an application rather than a person,
+and someone had backed one up into readable blob storage. With it I could stop using the
+storage token and authenticate as a real Azure identity:
+
+```bash
+az login --service-principal -u <CLIENT_ID> -p '<CLIENT_SECRET>' --tenant <TENANT_ID>
+```
+
+This is what cloud enumeration actually feels like, less "find the exploit" and more "what
+can this identity touch, and what's the next identity I can become." I'd just become a much
+more interesting one, and the json even told me exactly where to point it next.
+
+## Step 4: Key Vault, and the "five minutes before" trick
+
+Key Vault is Azure's managed secret store, the proper home for exactly the kind of secret
+this box instead left lying in a blob. Pointed straight at `ccabana-kv-f5scjagc` by that
+json, I listed its secrets and got four:
 
 ```bash
 az keyvault secret list --vault-name ccabana-kv-f5scjagc -o table
@@ -250,6 +298,10 @@ Every step here maps to a real Azure misconfiguration, and the fixes are worth s
 
 ## What I took away
 
+- **The identity you're handed may see nothing, and that's the puzzle.** `az resource list`
+  and `az storage account list` came back empty. The access I needed was never my user's, it
+  was the website's leaked token. Cloud enumeration is less about one exploit and more about
+  what each identity can touch and which identity you can become next.
 - **The briefing was the exploit, again.** "What the kiosk is trusting to reach into storage"
   and "how much further that trust extends" described a leaked, over-scoped credential before
   I ran a thing.
