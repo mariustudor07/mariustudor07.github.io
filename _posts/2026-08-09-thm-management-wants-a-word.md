@@ -277,9 +277,10 @@ what you read.
 
 The flag:
 
-<span class="spoiler"><code>THM{1t_w4s_V3r4_A11_Al0ng?!}</code></span>
+`THM{[redacted]}`
 
-Which, decoded from leet, is "it was Vera all along," matching the comic. Fitting.
+I'm leaving it redacted here, TryHackMe's terms ask you not to publish room answers, and that's
+fair. Decoded from leet it reads "it was Vera all along," which matches the comic. Fitting.
 
 ## What I took from this one
 
